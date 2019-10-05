@@ -7,17 +7,17 @@ import java.util.*;
  * @author Alessandro Tornesello
  */
 
-public class MQTTMessageListener implements IMqttMessageListener {
+public class MqttMessageListener implements IMqttMessageListener {
 
-    private ArrayList<MQTTMessageExtended> messageList = new ArrayList<MQTTMessageExtended>();
-    private ObservableList<MQTTMessageExtended> observableMessageList = FXCollections.observableList(messageList);
+    private ArrayList<MqttMessageExtended> messageList = new ArrayList<MqttMessageExtended>();
+    private ObservableList<MqttMessageExtended> observableMessageList = FXCollections.observableList(messageList);
 
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-        MQTTMessageExtended newMessage = new MQTTMessageExtended(s, mqttMessage);
+        MqttMessageExtended newMessage = new MqttMessageExtended(s, mqttMessage);
         messageList.add(newMessage);
     }
 
-    public ObservableList<MQTTMessageExtended> getObservableMessageList() {
+    public ObservableList<MqttMessageExtended> getObservableMessageList() {
         return observableMessageList;
     }
 }

@@ -9,21 +9,21 @@ import java.text.MessageFormat;
  * @author Alessandro Tornesello
  */
 
-public class MQTTConnectionHandler {
+public class MqttConnectionHandler {
 
-    private static MQTTConnectionHandler instance = new MQTTConnectionHandler();
+    private static MqttConnectionHandler instance = new MqttConnectionHandler();
 
     private MqttClient client;
-    private MQTTMessageListener listener = new MQTTMessageListener();
+    private MqttMessageListener listener = new MqttMessageListener();
 
     // True if client is connected to broker, otherwise false.
     private boolean isConnected = false;
 
-    public static MQTTConnectionHandler getInstance() {
+    public static MqttConnectionHandler getInstance() {
         return instance;
     }
 
-    private MQTTConnectionHandler() {
+    private MqttConnectionHandler() {
     }
 
     public boolean connect(ConnectionProfile profile) {
@@ -64,7 +64,7 @@ public class MQTTConnectionHandler {
         }
     }
 
-    public ObservableList<MQTTMessageExtended> getObservableMessageList() {
+    public ObservableList<MqttMessageExtended> getObservableMessageList() {
         return listener.getObservableMessageList();
     }
 }

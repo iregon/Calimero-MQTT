@@ -2,21 +2,21 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.Date;
 
-public class MQTTMessageExtended extends MqttMessage {
+public class MqttMessageExtended extends MqttMessage {
 
     private String topic;
 
     // When the message is arrived
     private Date arrivalTime;
 
-    public MQTTMessageExtended() {
+    public MqttMessageExtended() {
     }
 
-    public MQTTMessageExtended(byte[] payload) {
+    public MqttMessageExtended(byte[] payload) {
         super(payload);
     }
 
-    public MQTTMessageExtended(String topic, MqttMessage msg) {
+    public MqttMessageExtended(String topic, MqttMessage msg) {
         super(msg.getPayload());
         super.setQos(msg.getQos());
         super.setId(msg.getId());
@@ -24,7 +24,7 @@ public class MQTTMessageExtended extends MqttMessage {
         arrivalTime = new Date();
     }
 
-    public MQTTMessageExtended(String topic, byte[] payload, int qos) {
+    public MqttMessageExtended(String topic, byte[] payload, int qos) {
         super(payload);
         super.setQos(qos);
         this.topic = topic;
