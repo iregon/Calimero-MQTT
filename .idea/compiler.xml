@@ -13,10 +13,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="calimero-gui" target="1.5" />
-      <module name="calimero-lib" target="1.5" />
-      <module name="mqtt-client" target="1.5" />
-      <module name="simple-logger" target="1.5" />
+      <module name="calimero-gui" target="1.8" />
+      <module name="calimero-lib" target="1.8" />
+      <module name="mqtt-client" target="1.8" />
+      <module name="simple-logger" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
