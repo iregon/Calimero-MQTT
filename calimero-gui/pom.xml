@@ -15,6 +15,15 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -44,6 +53,12 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.5.2</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alessandro.calimero</groupId>
+            <artifactId>calimero-lib</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 
