@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="calimero-gui" />
+        <module name="calimero-lib" />
+        <module name="mqtt-client" />
+        <module name="simple-logger" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="calimero-gui" target="1.5" />
+      <module name="calimero-lib" target="1.5" />
+      <module name="mqtt-client" target="1.5" />
+      <module name="simple-logger" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
