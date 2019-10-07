@@ -6,11 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class MqttConnectionHandlerTest {
 
     ConnectionProfile localMosquitto = new ConnectionProfile("127.0.0.1", "1883");
+    MqttConnectionHandler connectionHandler = new MqttConnectionHandler();
 
     @Test
     @Order(2)
     void connect() {
-        assertTrue(MqttConnectionHandler.getInstance().connect(localMosquitto));
+        assertTrue(connectionHandler.connect(localMosquitto));
 
     }
 
@@ -25,7 +26,7 @@ class MqttConnectionHandlerTest {
     @Order(1)
     void getBrokerAddress() {
         assertEquals(
-                MqttConnectionHandler.getInstance().getBrokerAddress(
+                connectionHandler.getBrokerAddress(
                         localMosquitto.getAddress(),
                         localMosquitto.getPort()),
                 "tcp://127.0.0.1:1883");

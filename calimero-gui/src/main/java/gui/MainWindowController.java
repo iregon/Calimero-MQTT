@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 
 public class MainWindowController {
 
+    Calimer
+
     /**
      * Initialize method is executed before the gui loading
      */

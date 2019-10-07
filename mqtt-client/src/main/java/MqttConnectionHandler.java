@@ -11,19 +11,13 @@ import java.text.MessageFormat;
 
 public class MqttConnectionHandler {
 
-    private static MqttConnectionHandler instance = new MqttConnectionHandler();
-
     private MqttClient client;
     private MqttMessageListener listener = new MqttMessageListener();
 
     // True if client is connected to broker, otherwise false.
     private boolean isConnected = false;
 
-    public static MqttConnectionHandler getInstance() {
-        return instance;
-    }
-
-    private MqttConnectionHandler() {
+    public MqttConnectionHandler() {
     }
 
     public boolean connect(ConnectionProfile profile) {

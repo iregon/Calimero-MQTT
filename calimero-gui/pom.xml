@@ -29,6 +29,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.alessandro.calimero</groupId>
+            <artifactId>calimero-lib</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
@@ -53,12 +59,6 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.5.2</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alessandro.calimero</groupId>
-            <artifactId>calimero-lib</artifactId>
-            <version>1.0</version>
         </dependency>
     </dependencies>
 
