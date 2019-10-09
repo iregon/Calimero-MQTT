@@ -1,7 +1,9 @@
+package com.alessandro.mqtt.client;
+
 import javafx.collections.ObservableList;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import utils.UUIDGenerator;
+import com.alessandro.mqtt.client.utils.UUIDGenerator;
 
 import java.text.MessageFormat;
 

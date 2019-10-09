@@ -1,3 +1,7 @@
+package com.alessandro.calimero;
+
+import com.alessandro.mqtt.client.MqttConnectionHandler;
+import com.alessandro.mqtt.client.MqttMessageExtended;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 

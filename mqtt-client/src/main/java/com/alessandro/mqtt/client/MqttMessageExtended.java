@@ -1,3 +1,5 @@
+package com.alessandro.mqtt.client;
+
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.Date;

@@ -2,7 +2,7 @@
  * @author Alessandro Tornesello
  */
 
-package utils;
+package com.alessandro.mqtt.client.utils;
 
 import java.util.UUID;
 

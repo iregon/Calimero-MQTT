@@ -1,3 +1,5 @@
+package com.alessandro.mqtt.client;
+
 import javafx.collections.*;
 import org.eclipse.paho.client.mqttv3.*;
 

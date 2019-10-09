@@ -1,4 +1,6 @@
-import com.alessandro.simplelogger.interfaces.ILogger;
+package com.alessandro.logger;
+
+import com.alessandro.logger.interfaces.ILogger;
 
 import java.util.ArrayList;
 

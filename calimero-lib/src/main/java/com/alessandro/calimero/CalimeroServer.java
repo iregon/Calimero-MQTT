@@ -1,6 +1,7 @@
-/**
- * @author Alessandro Tornesello
- */
+package com.alessandro.calimero;
+
+import com.alessandro.mqtt.client.ConnectionProfile;
+import com.alessandro.mqtt.client.MqttConnectionHandler;
 
 public class CalimeroServer {
 
@@ -13,6 +14,6 @@ public class CalimeroServer {
         mqttToKnx = new MqttToKnx(connectionHandler);
         knxToMqtt = new KnxToMqtt(connectionHandler);
 
-        connectionHandler.connect(new ConnectionProfile("127.0.0.1", "5000"));
+        connectionHandler.connect(new ConnectionProfile("127.0.0.1", "1883"));
     }
 }

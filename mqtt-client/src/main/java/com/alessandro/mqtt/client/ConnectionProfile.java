@@ -1,3 +1,5 @@
+package com.alessandro.mqtt.client;
+
 public class ConnectionProfile {
 
     private String address;

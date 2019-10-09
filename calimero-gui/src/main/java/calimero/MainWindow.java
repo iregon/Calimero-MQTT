@@ -1,8 +1,6 @@
-/**
+package calimero; /**
  * @author Alessandro Tornesello
  */
-
-package gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

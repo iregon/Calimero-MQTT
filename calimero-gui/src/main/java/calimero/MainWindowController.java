@@ -1,20 +1,19 @@
-/**
+package calimero; /**
  * @author Alessandro Tornesello
  */
 
-package gui;
-
+import com.alessandro.calimero.CalimeroServer;
 import javafx.fxml.FXML;
 
 public class MainWindowController {
 
-    Calimer
+    CalimeroServer server;
 
     /**
      * Initialize method is executed before the gui loading
      */
     @FXML
     public void initialize() {
-
+        server = new CalimeroServer();
     }
 }

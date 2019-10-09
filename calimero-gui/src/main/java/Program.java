@@ -2,7 +2,7 @@
  * @author Alessandro Tornesello
  */
 
-import gui.MainWindow;
+import calimero.MainWindow;
 import javafx.application.Application;
 
 public class Program {

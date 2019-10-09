@@ -6,17 +6,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="calimero-gui" />
-        <module name="calimero-lib" />
         <module name="mqtt-client" />
+        <module name="calimero-lib" />
+        <module name="mqtt-client (1) (com.alessandro.calimero)" />
+        <module name="calimero-gui" />
+        <module name="simple-logger (1) (com.alessandro.calimero)" />
+        <module name="calimero-gui (1) (com.alessandro.calimero)" />
+        <module name="calimero-lib (1) (com.alessandro.calimero)" />
         <module name="simple-logger" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="calimero-gui" target="1.8" />
+      <module name="calimero-gui (1) (com.alessandro.calimero)" target="1.8" />
       <module name="calimero-lib" target="1.8" />
+      <module name="calimero-lib (1) (com.alessandro.calimero)" target="1.8" />
+      <module name="calimero-mqtt" target="1.5" />
       <module name="mqtt-client" target="1.8" />
+      <module name="mqtt-client (1) (com.alessandro.calimero)" target="1.8" />
       <module name="simple-logger" target="1.8" />
+      <module name="simple-logger (1) (com.alessandro.calimero)" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
