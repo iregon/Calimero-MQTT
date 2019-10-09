@@ -6,10 +6,10 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
+        <option value="$PROJECT_DIR$/calimero-gui/pom.xml" />
+        <option value="$PROJECT_DIR$/mqtt-client/pom.xml" />
         <option value="$PROJECT_DIR$/calimero-lib/pom.xml" />
         <option value="$PROJECT_DIR$/simple-logger/pom.xml" />
-        <option value="$PROJECT_DIR$/mqtt-client/pom.xml" />
-        <option value="$PROJECT_DIR$/calimero-gui/pom.xml" />
       </list>
     </option>
   </component>

@@ -1,8 +1,5 @@
-/**
- * @author Alessandro Tornesello
- */
+package com.alessadnro.calimero.gui;
 
-import calimero.MainWindow;
 import javafx.application.Application;
 
 public class Program {

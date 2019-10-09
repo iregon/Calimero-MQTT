@@ -1,8 +1,8 @@
-package calimero; /**
+package com.alessadnro.calimero.gui; /**
  * @author Alessandro Tornesello
  */
 
-import com.alessandro.calimero.CalimeroServer;
+import com.alessandro.calimero.lib.CalimeroServer;
 import javafx.fxml.FXML;
 
 public class MainWindowController {

@@ -1,4 +1,4 @@
-package com.alessandro.calimero;
+package com.alessandro.calimero.lib;
 
 import com.alessandro.mqtt.client.MqttConnectionHandler;
 
