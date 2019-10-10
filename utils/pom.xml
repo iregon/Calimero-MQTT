@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.alessandro.calimero</groupId>
-    <artifactId>calimero-lib</artifactId>
+    <artifactId>utils</artifactId>
     <version>1.0</version>
 
     <build>
@@ -20,30 +20,29 @@
             </plugin>
         </plugins>
     </build>
-
     <dependencies>
         <dependency>
-            <groupId>com.alessandro.calimero</groupId>
-            <artifactId>mqtt-client</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alessandro.calimero</groupId>
-            <artifactId>utils</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.reactivex.rxjava2</groupId>
-            <artifactId>rxjava</artifactId>
-            <version>2.2.9</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.0.pr3</version>
         </dependency>
 
         <dependency>
             <groupId>io.reactivex.rxjava2</groupId>
             <artifactId>rxjavafx</artifactId>
             <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>2.2.9</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>2.2.9</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

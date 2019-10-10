@@ -1,0 +1,51 @@
+{
+  "installation": {
+    "name": "Progetto esame",
+    "mqttBrokerAddress": "127.0.0.1",
+    "mqttBrokerPort": "5000",
+    "localAddress": "10.0.13.97",
+    "buildings": {
+      "building":[
+        {
+          "name": "Edificio A",
+          "remoteIpAddress": "10.0.13.200",
+          "remotePort": "3671",
+          "rooms": {
+            "room": [
+              {
+                "name": "Cucina",
+                "devices": {
+                  "device": [
+                    {
+                      "name": "Termostato",
+                      "knxAddress": "1/1/6"
+                    },
+                    {
+                      "name": "Pulsantiera",
+                      "knxAddress": "1/1/7"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "Bagno",
+                "devices": {
+                  "device": [
+                    {
+                      "name": "Luce",
+                      "knxAddress": "1/2/6"
+                    },
+                    {
+                      "name": "Pulsantiera",
+                      "knxAddress": "1/2/7"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

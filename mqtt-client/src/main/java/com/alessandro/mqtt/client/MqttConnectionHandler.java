@@ -1,6 +1,7 @@
 package com.alessandro.mqtt.client;
 
-import javafx.collections.ObservableList;
+import com.alessandro.calimero.utils.rxjava.ObservableList;
+import com.alessandro.logger.Logger;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import com.alessandro.mqtt.client.utils.UUIDGenerator;
@@ -23,16 +24,20 @@ public class MqttConnectionHandler {
     }
 
     public boolean connect(ConnectionProfile profile) {
+        if(isConnected) return false;
+
         String brokerAddress = getBrokerAddress(profile.getAddress(), profile.getPort());
         try {
             client = new MqttClient(brokerAddress, UUIDGenerator.generateRandom());
+            client.connect();
             isConnected = true;
-            // TODO add logger
-            return true;
+            Logger.getInstance().info("Connected to MQTT broker.");
         } catch (MqttException e) {
-            // TODO add logger
+            Logger.getInstance().info("Connection failed to MQTT broker.");
             return false;
         }
+
+        return true;
     }
 
     public boolean disconnect() {
@@ -55,8 +60,7 @@ public class MqttConnectionHandler {
         try {
             client.subscribe(topic, listener);
         } catch (MqttException e) {
-            // TODO add logger
-            e.printStackTrace();
+            Logger.getInstance().info(MessageFormat.format("ERROR ConnHandler: {0}", e.getMessage()));
         }
     }
 

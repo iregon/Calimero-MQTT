@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MqttConnectionHandlerTest {
 
-    ConnectionProfile localMosquitto = new ConnectionProfile("127.0.0.1", "1883");
+    ConnectionProfile localMosquitto = new ConnectionProfile("127.0.0.1", "5000");
     MqttConnectionHandler connectionHandler = new MqttConnectionHandler();
 
     @Test
@@ -32,7 +32,7 @@ class MqttConnectionHandlerTest {
                 connectionHandler.getBrokerAddress(
                         localMosquitto.getAddress(),
                         localMosquitto.getPort()),
-                "tcp://127.0.0.1:1883");
+                "tcp://127.0.0.1:5000");
     }
 
 

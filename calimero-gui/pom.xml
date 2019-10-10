@@ -35,6 +35,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.alessandro.calimero</groupId>
+            <artifactId>simple-logger</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>13</version>

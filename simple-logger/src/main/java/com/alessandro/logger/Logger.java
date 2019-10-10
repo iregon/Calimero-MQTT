@@ -1,26 +1,27 @@
 package com.alessandro.logger;
 
 import com.alessandro.logger.interfaces.ILogger;
+import com.alessandro.logger.interfaces.ILoggerHandler;
 
 import java.util.ArrayList;
 
-public class LoggerHandler {
+public class Logger implements ILogger {
 
-    private ArrayList<ILogger> loggers = new ArrayList<ILogger>();
-    private static LoggerHandler handler = new LoggerHandler();
+    private ArrayList<ILoggerHandler> loggers = new ArrayList<>();
+    private static Logger handler = new Logger();
 
-    public static LoggerHandler getInstance() {
+    public static Logger getInstance() {
         return handler;
     }
 
-    public LoggerHandler() {
+    public Logger() {
     }
 
     /**
      * Add a logger to logger's list
      * @param logger New logger
      */
-    public void addLogger(ILogger logger) {
+    public void addLogger(ILoggerHandler logger) {
         loggers.add(logger);
     }
 

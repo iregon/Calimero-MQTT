@@ -1,18 +1,15 @@
 package com.alessandro.mqtt.client;
 
-import javafx.collections.*;
+import com.alessandro.calimero.utils.rxjava.ObservableList;
 import org.eclipse.paho.client.mqttv3.*;
-
-import java.util.*;
-
-/**
- * @author Alessandro Tornesello
- */
 
 public class MqttMessageListener implements IMqttMessageListener {
 
-    private ArrayList<MqttMessageExtended> messageList = new ArrayList<MqttMessageExtended>();
-    private ObservableList<MqttMessageExtended> observableMessageList = FXCollections.observableList(messageList);
+    private ObservableList<MqttMessageExtended> messageList;
+
+    public MqttMessageListener() {
+        messageList = new ObservableList<>();
+    }
 
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
         MqttMessageExtended newMessage = new MqttMessageExtended(s, mqttMessage);
@@ -20,6 +17,6 @@ public class MqttMessageListener implements IMqttMessageListener {
     }
 
     public ObservableList<MqttMessageExtended> getObservableMessageList() {
-        return observableMessageList;
+        return messageList;
     }
 }
