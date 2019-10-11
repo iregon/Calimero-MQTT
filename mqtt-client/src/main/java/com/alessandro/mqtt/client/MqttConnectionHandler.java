@@ -67,4 +67,8 @@ public class MqttConnectionHandler {
     public ObservableList<MqttMessageExtended> getObservableMessageList() {
         return listener.getObservableMessageList();
     }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
 }

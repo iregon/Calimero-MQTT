@@ -54,9 +54,11 @@ public class MqttToKnx {
     private void startMessageObserver() {
         ObservableList<MqttMessageExtended> messageList = connectionHandler.getObservableMessageList();
         messageList.getObservable().subscribe((change) -> {
-            sendTelegramToKnx();
+            sendTelegramToKnx(change);
         });
     }
 
-    private void sendTelegramToKnx() {}
+    private void sendTelegramToKnx(MqttMessageExtended msg) {
+        System.out.println(msg.getPayloadString());
+    }
 }

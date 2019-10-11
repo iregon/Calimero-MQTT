@@ -17,13 +17,16 @@ public class CalimeroServer {
     public CalimeroServer() {
         // Connect to broker
         connectionHandler = new MqttConnectionHandler();
-        connectionHandler.connect(new ConnectionProfile("127.0.0.1", "5000")); // TODO read connection options from configuration
-
         configHandler = new ConfigurationHandler(INSTALLATION_RESOURCE_PATH);
 
-        mqttToKnx = new MqttToKnx(connectionHandler, configHandler.getInstallationConfiguration());
-        knxToMqtt = new KnxToMqtt(connectionHandler);
+        ConnectionProfile profile = new ConnectionProfile(
+                configHandler.getInstallationConfiguration().getMqttBrokerAddress(),
+                configHandler.getInstallationConfiguration().getMqttBrokerPort());
+        connectionHandler.connect(profile);
 
-
+        if(connectionHandler.isConnected()) {
+            mqttToKnx = new MqttToKnx(connectionHandler, configHandler.getInstallationConfiguration());
+            knxToMqtt = new KnxToMqtt(connectionHandler);
+        }
     }
 }
