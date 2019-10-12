@@ -23,14 +23,14 @@ public class InstallationConfiguration {
     @JsonProperty("localAddress")
     private String localAddress;
 
+    @JsonProperty("buildings")
     private ArrayList<BuildingConfiguration> buildingsList = new ArrayList<>();
 
     @SuppressWarnings("unchecked")
-    @JsonProperty("buildings")
-    private void addBuildings(Map<String,Object> buildings) {
-        ((ArrayList)buildings.get("building")).forEach(
-                building -> buildingsList.add(new BuildingConfiguration((LinkedHashMap<String, Object>)building)));
-    }
+//    private void addBuildings(Map<String,Object> buildings) {
+//        ((ArrayList)buildings.get("building")).forEach(
+//                building -> buildingsList.add(new BuildingConfiguration((LinkedHashMap<String, Object>)building)));
+//    }
 
     public String getInstallationName() {
         return installationName;
