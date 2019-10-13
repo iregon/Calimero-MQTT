@@ -31,3 +31,5 @@ codemr/*
 .idea/
 
 *.lck
+
+*.iml
