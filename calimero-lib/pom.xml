@@ -30,6 +30,12 @@
 
         <dependency>
             <groupId>com.alessandro.calimero</groupId>
+            <artifactId>knx-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alessandro.calimero</groupId>
             <artifactId>utils</artifactId>
             <version>1.0</version>
         </dependency>

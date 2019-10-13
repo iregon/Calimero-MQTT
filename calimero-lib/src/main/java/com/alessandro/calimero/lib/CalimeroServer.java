@@ -1,6 +1,7 @@
 package com.alessandro.calimero.lib;
 
 import com.alessandro.calimero.utils.config.ConfigurationHandler;
+import com.alessandro.knx.client.KnxConnectionHandler;
 import com.alessandro.mqtt.client.ConnectionProfile;
 import com.alessandro.mqtt.client.MqttConnectionHandler;
 
@@ -8,7 +9,9 @@ public class CalimeroServer {
 
     private final String INSTALLATION_RESOURCE_PATH = "installation.json";
 
-    private MqttConnectionHandler connectionHandler;
+    private MqttConnectionHandler mqttConnection;
+    private KnxConnectionHandler knxconnection;
+
     private MqttToKnx mqttToKnx;
     private KnxToMqtt knxToMqtt;
 
@@ -16,17 +19,20 @@ public class CalimeroServer {
 
     public CalimeroServer() {
         // Connect to broker
-        connectionHandler = new MqttConnectionHandler();
+        mqttConnection = new MqttConnectionHandler();
+        knxconnection = new KnxConnectionHandler();
         configHandler = new ConfigurationHandler(INSTALLATION_RESOURCE_PATH);
 
         ConnectionProfile profile = new ConnectionProfile(
                 configHandler.getInstallationConfiguration().getMqttBrokerAddress(),
                 configHandler.getInstallationConfiguration().getMqttBrokerPort());
-        connectionHandler.connect(profile);
+        mqttConnection.connect(profile);
 
-        if(connectionHandler.isConnected()) {
-            mqttToKnx = new MqttToKnx(connectionHandler, configHandler.getInstallationConfiguration());
-            knxToMqtt = new KnxToMqtt(connectionHandler);
+        if(mqttConnection.isConnected()) {
+            mqttToKnx = new MqttToKnx(mqttConnection, configHandler.getInstallationConfiguration());
+            mqttConnection.addMessageObserver(mqttToKnx);
+
+            knxToMqtt = new KnxToMqtt(mqttConnection);
         }
     }
 }
