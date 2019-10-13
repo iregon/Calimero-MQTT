@@ -1,64 +1,59 @@
 package com.alessandro.calimero.lib;
 
+import com.alessandro.calimero.lib.utils.MqttTopicUtils;
 import com.alessandro.calimero.utils.config.InstallationConfiguration;
-import com.alessandro.calimero.utils.config.parts.BuildingConfiguration;
-import com.alessandro.calimero.utils.config.parts.DeviceConfiguration;
-import com.alessandro.calimero.utils.config.parts.RoomConfiguration;
-import com.alessandro.calimero.utils.rxjava.ObservableList;
 import com.alessandro.logger.Logger;
 import com.alessandro.mqtt.client.MqttConnectionHandler;
 import com.alessandro.mqtt.client.MqttMessageExtended;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-/**
- * @author Alessandro Tornesello
- */
-
-public class MqttToKnx {
+public class MqttToKnx implements Observer {
 
     private MqttConnectionHandler connectionHandler;
-    private List<MqttMessageExtended> messages = new ArrayList<MqttMessageExtended>();
 
     public MqttToKnx(MqttConnectionHandler connectionHandler, InstallationConfiguration config) {
         this.connectionHandler = connectionHandler;
 
-        subscribeToTopics(config);
-        startMessageObserver();
+        subscribeToMqttTopics(config);
     }
 
-    private void subscribeToTopics(InstallationConfiguration config) {
+    /**
+     * Based on devices in InstallationConfiguration, subscribe to all topics.
+     * @param config InstallationConfiguration with all device in installation.
+     */
+    private void subscribeToMqttTopics(InstallationConfiguration config) {
         config.getBuildingsList().forEach(building ->
                 building.getRooms().forEach(room ->
                         room.getDevices().forEach(device -> {
-                            String topic = getTopic(building, room, device);
+                            String topic = MqttTopicUtils.getTopic(building, room, device);
                             connectionHandler.subscribe(topic);
                             Logger.getInstance().info(MessageFormat.format("Subscribed to {0}", topic));
                         })));
     }
 
-    private String getTopic(BuildingConfiguration building, RoomConfiguration room, DeviceConfiguration device) {
-        return MessageFormat.format("{0}/{1}/{2}",
-                normalizeName(building.getName()),
-                normalizeName(room.getName()),
-                normalizeName(device.getName())
-        );
-    }
-
-    private String normalizeName(String name) {
-        return name.replaceAll(" ", "_");
-    }
-
-    private void startMessageObserver() {
-        ObservableList<MqttMessageExtended> messageList = connectionHandler.getObservableMessageList();
-        messageList.getObservable().subscribe((change) -> {
-            sendTelegramToKnx(change);
-        });
-    }
-
+    /**
+     * This method is called whenever a new message from the MQTT broker need
+     * to be sent to KNX installation
+     * @param msg
+     */
     private void sendTelegramToKnx(MqttMessageExtended msg) {
         System.out.println(msg.getPayloadString());
+    }
+
+    /**
+     * This method is called whenever the observed object is changed. An
+     * application calls an <tt>Observable</tt> object's
+     * <code>notifyObservers</code> method to have all the object's
+     * observers notified of the change.
+     *
+     * @param o   the observable object.
+     * @param arg an argument passed to the <code>notifyObservers</code>
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        sendTelegramToKnx((MqttMessageExtended)arg);
     }
 }
