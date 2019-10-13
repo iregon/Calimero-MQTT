@@ -7,6 +7,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import com.alessandro.mqtt.client.utils.UUIDGenerator;
 
 import java.text.MessageFormat;
+import java.util.Observer;
 
 /**
  * @author Alessandro Tornesello
@@ -64,8 +65,8 @@ public class MqttConnectionHandler {
         }
     }
 
-    public ObservableList<MqttMessageExtended> getObservableMessageList() {
-        return listener.getObservableMessageList();
+    public void addMessageObserver(Observer ob) {
+        listener.addObserver(ob);
     }
 
     public boolean isConnected() {
