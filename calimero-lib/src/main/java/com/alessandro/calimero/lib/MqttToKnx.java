@@ -25,13 +25,14 @@ public class MqttToKnx implements Observer {
      * @param config InstallationConfiguration with all device in installation.
      */
     private void subscribeToMqttTopics(InstallationConfiguration config) {
-        config.getBuildingsList().forEach(building ->
-                building.getRooms().forEach(room ->
-                        room.getDevices().forEach(device -> {
-                            String topic = MqttTopicUtils.getTopic(building, room, device);
+        config.getFloorsList().forEach(floor ->
+                floor.getRooms().forEach(room ->
+                        room.getDevices().forEach(device ->
+                            device.getGroupAddresses().forEach(groupAddress -> {
+                            String topic = MqttTopicUtils.getTopic(floor, room, device, groupAddress);
                             connectionHandler.subscribe(topic);
                             Logger.getInstance().info(MessageFormat.format("Subscribed to {0}", topic));
-                        })));
+                        }))));
     }
 
     /**

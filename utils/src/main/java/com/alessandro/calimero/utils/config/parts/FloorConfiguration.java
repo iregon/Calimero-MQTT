@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
-public class DeviceConfiguration {
+public class FloorConfiguration {
 
     @JsonProperty("label")
     private String label;
 
-    @JsonProperty("groupAddresses")
-    private ArrayList<GroupAddress> groupAddresses = new ArrayList<>();
+    @JsonProperty("rooms")
+    private ArrayList<RoomConfiguration> rooms = new ArrayList<>();
 
-    public DeviceConfiguration() {
+    public FloorConfiguration() {
     }
 
     public String getLabel() {
         return label;
     }
 
-    public ArrayList<GroupAddress> getGroupAddresses() {
-        return groupAddresses;
+    public ArrayList<RoomConfiguration> getRooms() {
+        return rooms;
     }
 }

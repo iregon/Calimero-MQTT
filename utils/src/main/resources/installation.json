@@ -1,37 +1,46 @@
 {
-  "installation": {
-    "name": "Progetto esame",
+  "project": {
+    "name": "Progetto Esame IoT",
     "mqttBrokerAddress": "127.0.0.1",
     "mqttBrokerPort": "1883",
-    "localAddress": "10.0.13.97",
-    "buildings": [
+    "knxServerAddress": "10.0.13.200",
+    "knxServerPort": "3671",
+    "floors": [
       {
-        "name": "Edificio A",
-        "remoteIpAddress": "10.0.13.200",
-        "remotePort": "3671",
+        "label": "Piano terra",
         "rooms": [
           {
-            "name": "Cucina",
+            "label": "Garage",
             "devices": [
               {
-                "name": "Pulsantiera",
-                "knxAddress": "1/1/7",
-                "type": "SWITCH"
+                "label": "Luce garage",
+                "groupAddresses": [
+                  {
+                    "label": "Comando luce",
+                    "address": "0/0/2",
+                    "dpt": "1.001"
+                  }
+                ]
               }
             ]
           },
           {
-            "name": "Bagno",
+            "label": "Bagno",
             "devices": [
               {
-                "name": "Luce",
-                "knxAddress": "1/2/6",
-                "type": "SWITCH"
-              },
-              {
-                "name": "Pulsantiera",
-                "knxAddress": "1/2/7",
-                "type": "SWITCH"
+                "label": "Tapparella bagno",
+                "groupAddresses": [
+                  {
+                    "label": "Leggi movimento",
+                    "address": "1/3/0",
+                    "dpt": "1.008"
+                  },
+                  {
+                    "label": "Scrivi movimento",
+                    "address": "1/3/1",
+                    "dpt": "1.008"
+                  }
+                ]
               }
             ]
           }

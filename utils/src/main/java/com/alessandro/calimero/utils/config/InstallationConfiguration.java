@@ -1,14 +1,12 @@
 package com.alessandro.calimero.utils.config;
 
-import com.alessandro.calimero.utils.config.parts.BuildingConfiguration;
+import com.alessandro.calimero.utils.config.parts.FloorConfiguration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
-@JsonRootName("installation")
+@JsonRootName("project")
 public class InstallationConfiguration {
 
     @JsonProperty("name")
@@ -20,17 +18,14 @@ public class InstallationConfiguration {
     @JsonProperty("mqttBrokerPort")
     private String mqttBrokerPort;
 
-    @JsonProperty("localAddress")
-    private String localAddress;
+    @JsonProperty("knxServerAddress")
+    private String knxServerAddress;
 
-    @JsonProperty("buildings")
-    private ArrayList<BuildingConfiguration> buildingsList = new ArrayList<>();
+    @JsonProperty("knxServerPort")
+    private String knxServerPort;
 
-    @SuppressWarnings("unchecked")
-//    private void addBuildings(Map<String,Object> buildings) {
-//        ((ArrayList)buildings.get("building")).forEach(
-//                building -> buildingsList.add(new BuildingConfiguration((LinkedHashMap<String, Object>)building)));
-//    }
+    @JsonProperty("floors")
+    private ArrayList<FloorConfiguration> floorsList = new ArrayList<>();
 
     public String getInstallationName() {
         return installationName;
@@ -44,12 +39,8 @@ public class InstallationConfiguration {
         return mqttBrokerPort;
     }
 
-    public String getLocalAddress() {
-        return localAddress;
-    }
-
-    public ArrayList<BuildingConfiguration> getBuildingsList() {
-        return buildingsList;
+    public ArrayList<FloorConfiguration> getFloorsList() {
+        return floorsList;
     }
 }
 
