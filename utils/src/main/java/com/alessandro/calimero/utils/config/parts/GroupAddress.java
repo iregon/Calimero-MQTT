@@ -11,6 +11,9 @@ public class GroupAddress {
     @JsonProperty("address")
     private String address;
 
+    @JsonProperty("addressStatus")
+    private String addressStatus;
+
     @JsonProperty("dpt")
     private DataType dpt;
 
@@ -23,6 +26,10 @@ public class GroupAddress {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getAddressStatus() {
+        return addressStatus;
     }
 
     public DataType getDpt() {
