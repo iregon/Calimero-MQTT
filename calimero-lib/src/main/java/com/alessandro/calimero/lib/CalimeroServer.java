@@ -20,8 +20,10 @@ public class CalimeroServer {
     public CalimeroServer() {
         // Connect to broker
         mqttConnection = new MqttConnectionHandler();
-        knxconnection = new KnxConnectionHandler();
+
         configHandler = new ConfigurationHandler(INSTALLATION_RESOURCE_PATH);
+
+        knxconnection = new KnxConnectionHandler(configHandler.getInstallationConfiguration());
 
         ConnectionProfile profile = new ConnectionProfile(
                 configHandler.getInstallationConfiguration().getMqttBrokerAddress(),
@@ -29,7 +31,7 @@ public class CalimeroServer {
         mqttConnection.connect(profile);
 
         if(mqttConnection.isConnected()) {
-            mqttToKnx = new MqttToKnx(mqttConnection, configHandler.getInstallationConfiguration());
+            mqttToKnx = new MqttToKnx(mqttConnection, knxconnection, configHandler.getInstallationConfiguration());
             mqttConnection.addMessageObserver(mqttToKnx);
 
             knxToMqtt = new KnxToMqtt(mqttConnection);

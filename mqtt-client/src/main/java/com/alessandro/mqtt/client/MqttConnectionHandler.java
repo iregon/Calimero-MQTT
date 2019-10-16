@@ -1,6 +1,5 @@
 package com.alessandro.mqtt.client;
 
-import com.alessandro.calimero.utils.rxjava.ObservableList;
 import com.alessandro.logger.Logger;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -8,10 +7,6 @@ import com.alessandro.mqtt.client.utils.UUIDGenerator;
 
 import java.text.MessageFormat;
 import java.util.Observer;
-
-/**
- * @author Alessandro Tornesello
- */
 
 public class MqttConnectionHandler {
 
@@ -32,7 +27,6 @@ public class MqttConnectionHandler {
             client = new MqttClient(brokerAddress, UUIDGenerator.generateRandom());
             client.connect();
             isConnected = true;
-            Logger.getInstance().info("Connected to MQTT broker.");
         } catch (MqttException e) {
             Logger.getInstance().info("Connection failed to MQTT broker.");
             return false;
@@ -46,7 +40,9 @@ public class MqttConnectionHandler {
             try {
                 client.disconnect();
             } catch (MqttException e) {
-                System.out.println(e.getMessage());
+                Logger.getInstance().info(MessageFormat.format(
+                        "ERROR ConnHandler(disconnect): {0}",
+                        e.getMessage()));
                 return false;
             }
         }
@@ -61,7 +57,9 @@ public class MqttConnectionHandler {
         try {
             client.subscribe(topic, listener);
         } catch (MqttException e) {
-            Logger.getInstance().info(MessageFormat.format("ERROR ConnHandler: {0}", e.getMessage()));
+            Logger.getInstance().info(MessageFormat.format(
+                    "ERROR ConnHandler(subscribe): {0}",
+                    e.getMessage()));
         }
     }
 
@@ -71,5 +69,15 @@ public class MqttConnectionHandler {
 
     public boolean isConnected() {
         return isConnected;
+    }
+
+    public void publish(String topic, String payload) {
+        try {
+            client.publish(topic, payload.getBytes(), 1, true);
+        } catch (MqttException e) {
+            Logger.getInstance().info(MessageFormat.format(
+                    "ERROR ConnHandler(publish): {0}",
+                    e.getMessage()));
+        }
     }
 }
