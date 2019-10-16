@@ -1,11 +1,20 @@
 package com.alessandro.knx.client;// https://github.com/calimero-project/introduction/blob/master/src/main/java/CreateTunnelingLink.java
 
+import tuwien.auto.calimero.GroupAddress;
 import tuwien.auto.calimero.KNXException;
+import tuwien.auto.calimero.KNXTimeoutException;
+import tuwien.auto.calimero.Priority;
+import tuwien.auto.calimero.datapoint.Datapoint;
+import tuwien.auto.calimero.dptxlator.DPTXlator;
 import tuwien.auto.calimero.knxnetip.KNXnetIPConnection;
+import tuwien.auto.calimero.link.KNXLinkClosedException;
 import tuwien.auto.calimero.link.KNXNetworkLink;
 import tuwien.auto.calimero.link.KNXNetworkLinkIP;
 import tuwien.auto.calimero.link.medium.KNXMediumSettings;
 import tuwien.auto.calimero.link.medium.TPSettings;
+import tuwien.auto.calimero.process.ProcessCommunicator;
+import tuwien.auto.calimero.process.ProcessCommunicatorImpl;
+import tuwien.auto.calimero.process.ProcessListener;
 
 import java.net.InetSocketAddress;
 
@@ -18,6 +27,8 @@ public class KnxTunneling {
      * e.g., "192.168.1.20". The default port is where most servers listen on for new connection requests.
      */
     private InetSocketAddress server;
+
+    private ProcessCommunicator communicator;
 
     public KnxTunneling(InetSocketAddress local, InetSocketAddress server) {
         this.local = local;
@@ -44,19 +55,25 @@ public class KnxTunneling {
      * }
      * </pre>
      *
-     * @return
+     * @return Link to the server.
      * @throws KNXException
      * @throws InterruptedException
      */
-    public KNXNetworkLink createTunnelling() throws KNXException, InterruptedException {
-        return KNXNetworkLinkIP.newTunnelingLink(local, server, false, TPSettings.TP1);
+    public KNXNetworkLinkIP createTunnelling() throws KNXException, InterruptedException {
+        return createTunnelling(false, TPSettings.TP1);
     }
 
-    public KNXNetworkLink createTunnelling(boolean useNAT) throws KNXException, InterruptedException {
-        return KNXNetworkLinkIP.newTunnelingLink(local, server, useNAT, TPSettings.TP1);
+    public KNXNetworkLinkIP createTunnelling(boolean useNAT) throws KNXException, InterruptedException {
+        return createTunnelling(useNAT, TPSettings.TP1);
     }
 
-    public KNXNetworkLink createTunnelling(boolean useNAT, KNXMediumSettings settings) throws KNXException, InterruptedException {
-        return KNXNetworkLinkIP.newTunnelingLink(local, server, useNAT, settings);
+    public KNXNetworkLinkIP createTunnelling(boolean useNAT, KNXMediumSettings settings) throws KNXException, InterruptedException {
+        KNXNetworkLinkIP link = KNXNetworkLinkIP.newTunnelingLink(local, server, useNAT, settings);
+        communicator = new ProcessCommunicatorImpl(link);
+        return link;
+    }
+
+    public ProcessCommunicator getCommunicator() {
+        return communicator;
     }
 }
