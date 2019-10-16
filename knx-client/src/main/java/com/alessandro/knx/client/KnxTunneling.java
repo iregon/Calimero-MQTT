@@ -1,20 +1,11 @@
 package com.alessandro.knx.client;// https://github.com/calimero-project/introduction/blob/master/src/main/java/CreateTunnelingLink.java
 
-import tuwien.auto.calimero.GroupAddress;
 import tuwien.auto.calimero.KNXException;
-import tuwien.auto.calimero.KNXTimeoutException;
-import tuwien.auto.calimero.Priority;
-import tuwien.auto.calimero.datapoint.Datapoint;
-import tuwien.auto.calimero.dptxlator.DPTXlator;
-import tuwien.auto.calimero.knxnetip.KNXnetIPConnection;
-import tuwien.auto.calimero.link.KNXLinkClosedException;
-import tuwien.auto.calimero.link.KNXNetworkLink;
 import tuwien.auto.calimero.link.KNXNetworkLinkIP;
 import tuwien.auto.calimero.link.medium.KNXMediumSettings;
 import tuwien.auto.calimero.link.medium.TPSettings;
 import tuwien.auto.calimero.process.ProcessCommunicator;
 import tuwien.auto.calimero.process.ProcessCommunicatorImpl;
-import tuwien.auto.calimero.process.ProcessListener;
 
 import java.net.InetSocketAddress;
 
