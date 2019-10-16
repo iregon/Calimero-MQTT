@@ -16,7 +16,7 @@ import java.util.Observer;
 public class MqttToKnx implements Observer {
 
     private MqttConnectionHandler mqttConnectionHandler;
-    private KnxConnectionHandler knxConnectionHandler
+    private KnxConnectionHandler knxConnectionHandler;
 
     public MqttToKnx(MqttConnectionHandler mqttConnectionHandler,
                      KnxConnectionHandler knxConnectionHandler,
