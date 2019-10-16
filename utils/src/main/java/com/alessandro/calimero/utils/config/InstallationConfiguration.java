@@ -24,6 +24,9 @@ public class InstallationConfiguration {
     @JsonProperty("knxServerPort")
     private String knxServerPort;
 
+    @JsonProperty("localPort")
+    private String localPort;
+
     @JsonProperty("floors")
     private ArrayList<FloorConfiguration> floorsList = new ArrayList<>();
 
@@ -37,6 +40,18 @@ public class InstallationConfiguration {
 
     public String getMqttBrokerPort() {
         return mqttBrokerPort;
+    }
+
+    public String getKnxServerAddress() {
+        return knxServerAddress;
+    }
+
+    public String getKnxServerPort() {
+        return knxServerPort;
+    }
+
+    public String getLocalPort() {
+        return localPort;
     }
 
     public ArrayList<FloorConfiguration> getFloorsList() {

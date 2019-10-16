@@ -5,6 +5,7 @@
     "mqttBrokerPort": "1883",
     "knxServerAddress": "10.0.13.200",
     "knxServerPort": "3671",
+    "localPort": "90000",
     "floors": [
       {
         "label": "Piano terra",
