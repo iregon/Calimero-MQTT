@@ -27,5 +27,11 @@
             <artifactId>calimero-core</artifactId>
             <version>2.4-rc2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alessandro.calimero</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>
