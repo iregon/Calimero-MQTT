@@ -1,4 +1,4 @@
-package com.alessadnro.calimero.gui; /**
+package com.alessandro.calimero.gui; /**
  * @author Alessandro Tornesello
  */
 

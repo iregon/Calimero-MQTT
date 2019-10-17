@@ -1,8 +1,8 @@
-package com.alessadnro.calimero.gui; /**
+package com.alessandro.calimero.gui; /**
  * @author Alessandro Tornesello
  */
 
-import com.alessadnro.calimero.gui.logs.TextflowLogger;
+import com.alessandro.calimero.gui.logs.TextflowLogger;
 import com.alessandro.calimero.lib.CalimeroServer;
 import com.alessandro.logger.Logger;
 import com.alessandro.logger.interfaces.ILoggerHandler;

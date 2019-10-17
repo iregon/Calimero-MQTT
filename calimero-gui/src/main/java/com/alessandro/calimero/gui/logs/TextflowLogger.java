@@ -1,4 +1,4 @@
-package com.alessadnro.calimero.gui.logs;
+package com.alessandro.calimero.gui.logs;
 
 import com.alessandro.logger.interfaces.ILoggerHandler;
 import javafx.application.Platform;
