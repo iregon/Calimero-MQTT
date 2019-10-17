@@ -3,6 +3,7 @@ package com.alessandro.knx.client;
 import com.alessandro.calimero.utils.config.InstallationConfiguration;
 import tuwien.auto.calimero.GroupAddress;
 import tuwien.auto.calimero.KNXException;
+import tuwien.auto.calimero.datapoint.Datapoint;
 import tuwien.auto.calimero.process.ProcessEvent;
 
 import java.net.InetAddress;
@@ -62,8 +63,8 @@ public class KnxConnectionHandler implements Observer {
                 new Integer(config.getKnxServerPort()));
     }
 
-    public void sendTelegram(GroupAddress groupAddress, String s) {
-        sender.sendDataToDevice(groupAddress, s);
+    public void sendTelegram(GroupAddress groupAddress, String dpt, String s) {
+        sender.sendDataToDevice(groupAddress, dpt, s);
     }
 
     @Override

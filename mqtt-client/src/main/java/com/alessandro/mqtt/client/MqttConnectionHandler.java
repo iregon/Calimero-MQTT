@@ -17,6 +17,7 @@ public class MqttConnectionHandler {
     private boolean isConnected = false;
 
     public MqttConnectionHandler() {
+
     }
 
     public boolean connect(ConnectionProfile profile) {

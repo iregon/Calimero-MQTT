@@ -18,6 +18,7 @@ public class CalimeroServer {
     private ConfigurationHandler configHandler;
 
     public CalimeroServer() {
+
         // Connect to broker
         mqttConnection = new MqttConnectionHandler();
 

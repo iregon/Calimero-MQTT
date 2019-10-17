@@ -8,6 +8,7 @@ import com.alessandro.mqtt.client.MqttConnectionHandler;
 import com.alessandro.mqtt.client.MqttMessageExtended;
 import tuwien.auto.calimero.GroupAddress;
 import tuwien.auto.calimero.KNXFormatException;
+import tuwien.auto.calimero.datapoint.Datapoint;
 
 import java.text.MessageFormat;
 import java.util.Observable;
@@ -37,7 +38,8 @@ public class MqttToKnx implements Observer {
                         room.getDevices().forEach(device ->
                             device.getGroupAddresses().forEach(groupAddress -> {
                             String topic = MqttTopicUtils.getTopic(floor, room, device, groupAddress);
-                                mqttConnectionHandler.subscribe(topic);
+                            mqttConnectionHandler.subscribe(topic);
+                            TopicToDpt.add(topic, device.getGroupAddresses().get(0).getDpt().getDisplayName());
                             Logger.getInstance().info(MessageFormat.format("Subscribed to {0}", topic));
                         }))));
     }
@@ -55,7 +57,7 @@ public class MqttToKnx implements Observer {
             e.printStackTrace(); // TODO add logger
         }
 
-        knxConnectionHandler.sendTelegram(address, msg.getPayloadString());
+        knxConnectionHandler.sendTelegram(address, TopicToDpt.getDptFromMqttTopic(msg.getTopic()), msg.getPayloadString());
     }
 
     /**
