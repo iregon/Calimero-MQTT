@@ -1,6 +1,6 @@
 package gui;
 
-import com.alessadnro.calimero.gui.MainWindow;
+import com.alessandro.calimero.gui.MainWindow;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

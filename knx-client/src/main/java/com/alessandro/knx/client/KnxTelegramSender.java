@@ -1,9 +1,14 @@
 package com.alessandro.knx.client;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import tuwien.auto.calimero.GroupAddress;
+import tuwien.auto.calimero.KNXException;
 import tuwien.auto.calimero.KNXTimeoutException;
+import tuwien.auto.calimero.datapoint.Datapoint;
 import tuwien.auto.calimero.link.KNXLinkClosedException;
 import tuwien.auto.calimero.process.ProcessCommunicator;
+
+import java.util.UUID;
 
 public class KnxTelegramSender {
 
@@ -25,12 +30,8 @@ public class KnxTelegramSender {
         try {
             System.out.println("Trying to send message to device with address " +  deviceAddress + "...");
 
-
-
-            switch (dpt) { // TODO make class
-                case "1.001":
-                    sendBool(deviceAddress, !value.equals("0"));
-            }
+            Datapoint dp = new Datapoint(deviceAddress, UUID.randomUUID().toString(), true);
+            this.communicator.write(dp, value);
             System.out.println("Sent message to device with address " +  deviceAddress + " successfully");
             return true;
         } catch (KNXTimeoutException e) {
@@ -40,10 +41,8 @@ public class KnxTelegramSender {
         catch (KNXLinkClosedException e) {
             System.out.println("The link was closed while trying to send a command. Aborting send");
             return false;
+        } catch (KNXException e) {
+            e.printStackTrace();
         }
-    }
-
-    private void sendBool(GroupAddress deviceAddress, boolean value) throws KNXTimeoutException, KNXLinkClosedException {
-        this.communicator.write(deviceAddress, value);
     }
 }

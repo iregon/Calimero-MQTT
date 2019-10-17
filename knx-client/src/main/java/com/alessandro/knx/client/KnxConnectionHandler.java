@@ -3,7 +3,6 @@ package com.alessandro.knx.client;
 import com.alessandro.calimero.utils.config.InstallationConfiguration;
 import tuwien.auto.calimero.GroupAddress;
 import tuwien.auto.calimero.KNXException;
-import tuwien.auto.calimero.datapoint.Datapoint;
 import tuwien.auto.calimero.process.ProcessEvent;
 
 import java.net.InetAddress;
@@ -11,10 +10,6 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
-
-/**
- * @author Alessandro Tornesello
- */
 
 public class KnxConnectionHandler implements Observer {
 
