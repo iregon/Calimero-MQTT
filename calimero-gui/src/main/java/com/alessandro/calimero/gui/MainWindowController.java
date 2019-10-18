@@ -1,6 +1,4 @@
-package com.alessandro.calimero.gui; /**
- * @author Alessandro Tornesello
- */
+package com.alessandro.calimero.gui;
 
 import com.alessandro.calimero.gui.logs.TextflowLogger;
 import com.alessandro.calimero.lib.CalimeroServer;
