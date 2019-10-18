@@ -33,5 +33,11 @@
             <artifactId>utils</artifactId>
             <version>1.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alessandro.logger</groupId>
+            <artifactId>simple-logger</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>

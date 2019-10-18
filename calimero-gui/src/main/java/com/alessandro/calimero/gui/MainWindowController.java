@@ -24,7 +24,7 @@ public class MainWindowController {
     @FXML
     public void initialize() {
         logger = new TextflowLogger(tflow_logs);
-        Logger.getInstance().addLogger(logger);
+        Logger.addLogger(logger);
 
         server = new CalimeroServer();
     }

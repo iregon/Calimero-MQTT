@@ -24,15 +24,16 @@ public class MqttConnectionHandler {
         if(isConnected) return false;
 
         String brokerAddress = getBrokerAddress(profile.getAddress(), profile.getPort());
+        Logger.info(MessageFormat.format("Connecting to MQTT broker {0} ...", brokerAddress));
         try {
             client = new MqttClient(brokerAddress, UUIDGenerator.generateRandom());
             client.connect();
             isConnected = true;
         } catch (MqttException e) {
-            Logger.getInstance().info("Connection failed to MQTT broker.");
+            Logger.info("Connection failed to MQTT broker.");
             return false;
         }
-
+        Logger.info("Connected to MQTT broker.");
         return true;
     }
 
@@ -41,7 +42,7 @@ public class MqttConnectionHandler {
             try {
                 client.disconnect();
             } catch (MqttException e) {
-                Logger.getInstance().info(MessageFormat.format(
+                Logger.info(MessageFormat.format(
                         "ERROR ConnHandler(disconnect): {0}",
                         e.getMessage()));
                 return false;
@@ -58,7 +59,7 @@ public class MqttConnectionHandler {
         try {
             client.subscribe(topic, listener);
         } catch (MqttException e) {
-            Logger.getInstance().info(MessageFormat.format(
+            Logger.info(MessageFormat.format(
                     "ERROR ConnHandler(subscribe): {0}",
                     e.getMessage()));
         }
@@ -76,7 +77,7 @@ public class MqttConnectionHandler {
         try {
             client.publish(topic, payload.getBytes(), 1, true);
         } catch (MqttException e) {
-            Logger.getInstance().info(MessageFormat.format(
+            Logger.info(MessageFormat.format(
                     "ERROR ConnHandler(publish): {0}",
                     e.getMessage()));
         }
