@@ -29,7 +29,7 @@ public class MainWindow extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = getParent();
         primaryStage.setTitle("Calimero MQTT");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.show();
     }
 
