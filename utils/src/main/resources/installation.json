@@ -25,6 +25,22 @@
                 ]
               }
             ]
+          },
+          {
+            "label": "Bagno",
+            "devices": [
+              {
+                "label": "Luce",
+                "groupAddresses": [
+                  {
+                    "label": "Luce",
+                    "address": "0/0/3",
+                    "addressStatus": "0/0/4",
+                    "dpt": "1.001"
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
