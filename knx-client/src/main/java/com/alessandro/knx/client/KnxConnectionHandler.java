@@ -3,6 +3,9 @@ package com.alessandro.knx.client;
 import com.alessandro.calimero.utils.config.InstallationConfiguration;
 import tuwien.auto.calimero.GroupAddress;
 import tuwien.auto.calimero.KNXException;
+import tuwien.auto.calimero.datapoint.CommandDP;
+import tuwien.auto.calimero.datapoint.Datapoint;
+import tuwien.auto.calimero.datapoint.StateDP;
 import tuwien.auto.calimero.process.ProcessEvent;
 
 import java.net.InetAddress;
@@ -10,6 +13,7 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.UUID;
 
 public class KnxConnectionHandler implements Observer {
 
@@ -58,8 +62,14 @@ public class KnxConnectionHandler implements Observer {
                 new Integer(config.getKnxServerPort()));
     }
 
-    public void sendTelegram(GroupAddress groupAddress, String dpt, String s) {
-        sender.sendDataToDevice(groupAddress, dpt, s);
+    public void sendTelegram(GroupAddress groupAddress, String dpt, String s, boolean isState) {
+        Datapoint dp;
+
+        if(isState) dp = new StateDP(groupAddress, UUID.randomUUID().toString());
+        else dp = new CommandDP(groupAddress, UUID.randomUUID().toString());
+
+        dp.setDPT(0, dpt);
+        sender.sendDataToDevice(dp, s);
     }
 
     @Override
