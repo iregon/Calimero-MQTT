@@ -30,9 +30,9 @@ public class MainWindow extends Application {
         Parent root = getParent();
         primaryStage.setTitle("Calimero MQTT");
         primaryStage.setScene(new Scene(root, 600, 500));
-        primaryStage.show();
-
         primaryStage.setOnCloseRequest(event -> System.exit(0));
+
+        primaryStage.show();
     }
 
     /**
