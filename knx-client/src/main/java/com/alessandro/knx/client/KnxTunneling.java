@@ -43,7 +43,6 @@ public class KnxTunneling {
      * }catch (InterruptedException e) {
      *     ...
      * }
-     * }
      * </pre>
      *
      * @return Link to the server.
