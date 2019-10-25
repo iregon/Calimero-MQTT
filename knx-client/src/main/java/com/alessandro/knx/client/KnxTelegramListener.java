@@ -8,15 +8,16 @@
 
 package com.alessandro.knx.client;
 
+import com.alessandro.logger.Logger;
 import tuwien.auto.calimero.DetachEvent;
 import tuwien.auto.calimero.process.ProcessEvent;
 import tuwien.auto.calimero.process.ProcessListener;
 
+import java.text.MessageFormat;
 import java.util.Observable;
 
 /**
  * Class used to capture KNX events from the EIBD server
- *
  * */
 public class KnxTelegramListener extends Observable implements ProcessListener {
 
@@ -24,35 +25,32 @@ public class KnxTelegramListener extends Observable implements ProcessListener {
 
     @Override
     public void groupReadRequest(ProcessEvent processEvent) {
-
+        System.out.println("groupReadRequest");
     }
 
     @Override
     public void groupReadResponse(ProcessEvent processEvent) {
-
+        System.out.println("groupReadResponse");
     }
 
-    @Override
     /**
      * Callback method whenever something is written in the KNX network
      * @param Contains the information about the event occured
      */
+    @Override
     public void groupWrite(ProcessEvent processEvent) {
-//        String destAddr = processEvent.getDestination().toString();
-//
-//        //Message value (state)
-//        byte[] asdu = processEvent.getASDU();
-//        //Check if state was correct
-//        int state = ((asdu != null) && (asdu.length > 0)) ? asdu[0] : -1;
-//
-//        System.out.println("Group address is " + destAddr + "and state is " + state); // TODO add logger
-
+        Logger.info(MessageFormat.format("Group address is {0} and state is {1}",
+                MessageFormat.format("{0}/{1}/{2}",
+                        processEvent.getDestination().getMainGroup(),
+                        processEvent.getDestination().getMiddleGroup(),
+                        processEvent.getDestination().getSubGroup8()),
+                String.valueOf(processEvent.getASDU())));
         notifyTelegram(processEvent);
     }
 
     @Override
     public void detached(DetachEvent detachEvent) {
-        System.out.println("The KNXNetworkLink has been disconnected from the Process Monitor"); // TODO add logger
+        Logger.info("The KNXNetworkLink has been disconnected from the Process Monitor");
     }
 
     private void notifyTelegram(ProcessEvent processEvent) {

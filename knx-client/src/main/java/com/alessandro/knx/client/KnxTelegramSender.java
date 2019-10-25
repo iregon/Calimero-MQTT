@@ -1,18 +1,12 @@
 package com.alessandro.knx.client;
 
 import com.alessandro.logger.Logger;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import tuwien.auto.calimero.GroupAddress;
-import tuwien.auto.calimero.KNXException;
-import tuwien.auto.calimero.KNXTimeoutException;
-import tuwien.auto.calimero.datapoint.CommandDP;
+import tuwien.auto.calimero.*;
 import tuwien.auto.calimero.datapoint.Datapoint;
-import tuwien.auto.calimero.datapoint.StateDP;
 import tuwien.auto.calimero.link.KNXLinkClosedException;
 import tuwien.auto.calimero.process.ProcessCommunicator;
 
 import java.text.MessageFormat;
-import java.util.UUID;
 
 public class KnxTelegramSender {
 
@@ -33,7 +27,8 @@ public class KnxTelegramSender {
         try {
             this.communicator.write(dp, value);
             Logger.info(MessageFormat.format(
-                    "Sent message to device with address {0} successfully.",
+                    "Sent message \"{0}\" to device with address {1} successfully.",
+                    value,
                     dp.getMainAddress().toString()));
             return true;
         } catch (KNXTimeoutException e) {
