@@ -1,6 +1,7 @@
 package com.alessandro.knx.client;
 
 import com.alessandro.calimero.utils.config.InstallationConfiguration;
+import com.alessandro.logger.Logger;
 import tuwien.auto.calimero.GroupAddress;
 import tuwien.auto.calimero.KNXException;
 import tuwien.auto.calimero.datapoint.CommandDP;
@@ -11,6 +12,7 @@ import tuwien.auto.calimero.process.ProcessEvent;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+import java.text.MessageFormat;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
@@ -27,6 +29,11 @@ public class KnxConnectionHandler implements Observer {
     public KnxConnectionHandler(InstallationConfiguration config) {
         setSocketAddresses(config);
 
+        Logger.info(MessageFormat.format(
+                "Connectiong to KNX server {0}:{1} ...",
+                server.getAddress().toString(),
+                Integer.toString(server.getPort())
+        ));
         tunneling = new KnxTunneling(local, server);
         try {
             tunneling.createTunnelling();
@@ -34,7 +41,7 @@ public class KnxConnectionHandler implements Observer {
             listener.addObserver(this);
             sender = new KnxTelegramSender(tunneling.getCommunicator());
         } catch (KNXException e) {
-            e.printStackTrace();
+            Logger.info("Impossible to connect to KNX server.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
