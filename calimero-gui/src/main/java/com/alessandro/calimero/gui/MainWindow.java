@@ -1,6 +1,4 @@
-package com.alessandro.calimero.gui; /**
- * @author Alessandro Tornesello
- */
+package com.alessandro.calimero.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,20 +25,22 @@ public class MainWindow extends Application {
      *                     primary stages and will not be embedded in the browser.
      */
     public void start(Stage primaryStage) throws Exception {
-        Parent root = getParent();
-        primaryStage.setTitle("Calimero MQTT");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+        loader.setControllerFactory((Class<?> type) -> {
+            try {
+                Object controller = type.newInstance();
+                if (controller instanceof MainWindowController) {
+                    ((MainWindowController) controller).setPrimaryStage(primaryStage);
+                }
+                return controller ;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Parent root = loader.load();
         primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.setOnCloseRequest(event -> System.exit(0));
 
         primaryStage.show();
-    }
-
-    /**
-     * Get FXML file with GUI template.
-     * @return Parent object with GUI template.
-     * @throws IOException
-     */
-    public Parent getParent() throws IOException {
-        return FXMLLoader.load(getClass().getResource("/MainWindow.fxml"));
     }
 }
