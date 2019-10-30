@@ -18,6 +18,9 @@ public class InstallationConfiguration {
     @JsonProperty("mqttBrokerPort")
     private String mqttBrokerPort;
 
+    @JsonProperty("mqttBrokerWebsocketPort")
+    private String mqttBrokerWebsocketPort;
+
     @JsonProperty("knxServerAddress")
     private String knxServerAddress;
 
@@ -40,6 +43,10 @@ public class InstallationConfiguration {
 
     public String getMqttBrokerPort() {
         return mqttBrokerPort;
+    }
+
+    public String getMqttBrokerWebsocketPort() {
+        return mqttBrokerWebsocketPort;
     }
 
     public String getKnxServerAddress() {

@@ -23,9 +23,13 @@ public class KnxTelegramSender {
      * @return TRUE if everything went fine
      */
     public boolean sendDataToDevice(Datapoint dp, String value){
-        // TODO add logger
         try {
-            this.communicator.write(dp, value);
+            switch (dp.getDPT()) {
+                case "1.001":
+                case "1.002":
+                    this.communicator.write(dp.getMainAddress(), !value.equals("0"));
+                    break;
+            }
             Logger.info(MessageFormat.format(
                     "Sent message \"{0}\" to device with address {1} successfully.",
                     value,
@@ -37,9 +41,6 @@ public class KnxTelegramSender {
         }
         catch (KNXLinkClosedException e) {
             Logger.info("The link was closed while trying to send a command. Aborting send.");
-            return false;
-        } catch (KNXException e) {
-            Logger.info("KNX generic exception.");
             return false;
         }
     }

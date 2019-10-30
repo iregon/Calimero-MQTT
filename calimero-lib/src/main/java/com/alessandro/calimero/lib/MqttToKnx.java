@@ -38,7 +38,11 @@ public class MqttToKnx implements Observer {
                             device.getGroupAddresses().forEach(groupAddress -> {
                             String topic = MqttTopicUtils.getTopic(floor, room, device, groupAddress);
                             mqttConnectionHandler.subscribe(topic);
-                            TopicToDpt.add(topic, device.getGroupAddresses().get(0).getDpt().getDisplayName());
+                            TelegramToTopicMatcher.addMatch(
+                                    topic,
+                                    device.getGroupAddresses().get(0).getDpt().getDisplayName(),
+                                    device.getGroupAddresses().get(0).getAddress(),
+                                    device.getGroupAddresses().get(0).getAddressStatus());
                             Logger.info(MessageFormat.format("Subscribed to {0}", topic));
                         }))));
     }
@@ -50,19 +54,18 @@ public class MqttToKnx implements Observer {
      */
     private void sendTelegramToKnx(MqttMessageExtended msg) {
         GroupAddress address = null;
+
         try {
             address = new GroupAddress(getGroupAddressFromMqttTopic(msg.getTopic()));
 
             knxConnectionHandler.sendTelegram(address,
-                    TopicToDpt.getDptFromMqttTopic(msg.getTopic()),
+                    TelegramToTopicMatcher.getDptFromCommandTopic(msg.getTopic()),
                     msg.getPayloadString(),
                     false
             );
         } catch (KNXFormatException e) {
             e.printStackTrace(); // TODO add logger
         }
-
-
     }
 
     /**

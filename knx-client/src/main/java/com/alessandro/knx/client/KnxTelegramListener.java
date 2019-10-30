@@ -25,26 +25,23 @@ public class KnxTelegramListener extends Observable implements ProcessListener {
 
     @Override
     public void groupReadRequest(ProcessEvent processEvent) {
-        System.out.println("groupReadRequest");
+
     }
 
     @Override
     public void groupReadResponse(ProcessEvent processEvent) {
-        System.out.println("groupReadResponse");
+
     }
 
     /**
      * Callback method whenever something is written in the KNX network
-     * @param Contains the information about the event occured
+     * @param processEvent Contains the information about the event occurred
      */
     @Override
     public void groupWrite(ProcessEvent processEvent) {
         Logger.info(MessageFormat.format("Group address is {0} and state is {1}",
-                MessageFormat.format("{0}/{1}/{2}",
-                        processEvent.getDestination().getMainGroup(),
-                        processEvent.getDestination().getMiddleGroup(),
-                        processEvent.getDestination().getSubGroup8()),
-                String.valueOf(processEvent.getASDU())));
+                processEvent.getDestination().toString(),
+                (char)(processEvent.getASDU()[0] + 48))); // Convert byte to 0 (48) and 1 (49) in ascii
         notifyTelegram(processEvent);
     }
 

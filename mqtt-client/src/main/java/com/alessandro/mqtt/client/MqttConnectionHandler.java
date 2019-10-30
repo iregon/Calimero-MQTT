@@ -73,9 +73,13 @@ public class MqttConnectionHandler {
         return isConnected;
     }
 
-    public void publish(String topic, String payload) {
+    public void publish(String topic, String payload, boolean isRetained) {
+        publish(topic, payload.getBytes(), isRetained);
+    }
+
+    public void publish(String topic, byte[] payload, boolean isRetained) {
         try {
-            client.publish(topic, payload.getBytes(), 1, true);
+            client.publish(topic, payload, 1, isRetained);
         } catch (MqttException e) {
             Logger.info(MessageFormat.format(
                     "ERROR ConnHandler(publish): {0}",

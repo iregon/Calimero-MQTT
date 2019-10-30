@@ -8,7 +8,7 @@ import com.alessandro.mqtt.client.MqttConnectionHandler;
 public class CalimeroServer {
 
     private MqttConnectionHandler mqttConnection;
-    private KnxConnectionHandler knxconnection;
+    private KnxConnectionHandler knxConnection;
 
     private MqttToKnx mqttToKnx;
     private KnxToMqtt knxToMqtt;
@@ -20,7 +20,7 @@ public class CalimeroServer {
 
         mqttConnection = new MqttConnectionHandler();
 
-        knxconnection = new KnxConnectionHandler(configuration);
+        knxConnection = new KnxConnectionHandler(configuration);
 
         ConnectionProfile profile = new ConnectionProfile(
                 configuration.getMqttBrokerAddress(),
@@ -28,10 +28,11 @@ public class CalimeroServer {
         mqttConnection.connect(profile);
 
         if(mqttConnection.isConnected()) {
-            mqttToKnx = new MqttToKnx(mqttConnection, knxconnection, configuration);
+            mqttToKnx = new MqttToKnx(mqttConnection, knxConnection, configuration);
             mqttConnection.addMessageObserver(mqttToKnx);
 
             knxToMqtt = new KnxToMqtt(mqttConnection);
+            knxConnection.addTelegramObserver(knxToMqtt);
         }
     }
 }

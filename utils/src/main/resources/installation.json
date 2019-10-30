@@ -1,8 +1,9 @@
 {
   "project": {
     "name": "Progetto Esame IoT",
-    "mqttBrokerAddress": "127.0.0.1",
-    "mqttBrokerPort": "1883",
+    "mqttBrokerAddress": "farmer.cloudmqtt.com",
+    "mqttBrokerPort": "13855",
+    "mqttBrokerWebsocketPort": "33855",
     "knxServerAddress": "10.0.13.200",
     "knxServerPort": "3671",
     "localPort": "5100",
@@ -19,23 +20,7 @@
                   {
                     "label": "Luce",
                     "address": "0/0/1",
-                    "addressStatus": "0/0/2",
-                    "dpt": "1.001"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "label": "Bagno",
-            "devices": [
-              {
-                "label": "Luce",
-                "groupAddresses": [
-                  {
-                    "label": "Luce",
-                    "address": "0/0/3",
-                    "addressStatus": "0/0/4",
+                    "addressStatus": "0/0/3",
                     "dpt": "1.001"
                   }
                 ]
