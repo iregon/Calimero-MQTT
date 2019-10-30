@@ -18,7 +18,7 @@ public class CalimeroServer {
     public CalimeroServer(InstallationConfiguration configuration) {
         this.configuration = configuration;
 
-        mqttConnection = new MqttConnectionHandler();
+        mqttConnection = new MqttConnectionHandler(configuration);
 
         knxConnection = new KnxConnectionHandler(configuration);
 

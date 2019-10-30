@@ -1,5 +1,6 @@
 package com.alessandro.mqtt.client;
 
+import com.alessandro.calimero.utils.config.InstallationConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MqttConnectionHandlerTest {
 
     ConnectionProfile localMosquitto = new ConnectionProfile("127.0.0.1", "5000");
-    MqttConnectionHandler connectionHandler = new MqttConnectionHandler();
+    InstallationConfiguration config = new InstallationConfiguration();
+    MqttConnectionHandler connectionHandler = new MqttConnectionHandler(config);
 
     @Test
     @Order(2)

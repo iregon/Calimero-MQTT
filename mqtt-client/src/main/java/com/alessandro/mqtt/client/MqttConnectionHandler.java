@@ -1,7 +1,9 @@
 package com.alessandro.mqtt.client;
 
+import com.alessandro.calimero.utils.config.InstallationConfiguration;
 import com.alessandro.logger.Logger;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import com.alessandro.mqtt.client.utils.UUIDGenerator;
 
@@ -13,11 +15,13 @@ public class MqttConnectionHandler {
     private MqttClient client;
     private MqttMessageListener listener = new MqttMessageListener();
 
+    private InstallationConfiguration configuration;
+
     // True if client is connected to broker, otherwise false.
     private boolean isConnected = false;
 
-    public MqttConnectionHandler() {
-
+    public MqttConnectionHandler(InstallationConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     public boolean connect(ConnectionProfile profile) {
@@ -27,7 +31,10 @@ public class MqttConnectionHandler {
         Logger.info(MessageFormat.format("Connecting to MQTT broker {0} ...", brokerAddress));
         try {
             client = new MqttClient(brokerAddress, UUIDGenerator.generateRandom());
-            client.connect();
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setUserName("msglojds");
+            options.setPassword("-J7KZzEMIGO6".toCharArray());
+            client.connect(options);
             isConnected = true;
         } catch (MqttException e) {
             Logger.info("Connection failed to MQTT broker.");
