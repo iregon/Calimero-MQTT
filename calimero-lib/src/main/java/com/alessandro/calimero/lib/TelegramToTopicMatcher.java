@@ -2,6 +2,7 @@ package com.alessandro.calimero.lib;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class TelegramToTopicMatcher {
     private static ArrayList<TopicItem> items = new ArrayList<>();
@@ -11,26 +12,27 @@ public class TelegramToTopicMatcher {
         items.add(item);
     }
 
-    public static String getDptFromCommandTopic(String topic) {
+    public static Optional<String> getDptFromCommandTopic(String topic) {
         return items.stream()
                 .filter(topicItem -> MessageFormat.format(
                         "{0}/{1}",
                         topicItem.getBaseTopic(),
                         topicItem.getCommandDp()).equals(topic))
                 .findFirst()
-                .get().getDpt();
+                .map(TopicItem::getDpt);
     }
 
-    public static String getStateTopicFromStateDp(String stateDp) {
-        TopicItem item = items.stream()
+    public static Optional<String> getStateTopicFromStateDp(String stateDp) {
+        Optional<TopicItem> item = items.stream()
                 .filter(topicItem -> topicItem.getStateDp().equals(stateDp))
-                .findFirst()
-                .get();
-        return MessageFormat.format(
+                .findFirst();
+
+        return item.map(topicItem -> MessageFormat.format(
                 "{0}/{1}",
-                item.getBaseTopic(),
-                item.getStateDp());
+                topicItem.getBaseTopic(),
+                topicItem.getStateDp()));
     }
+
 }
 
 class TopicItem {

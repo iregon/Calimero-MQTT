@@ -1,6 +1,7 @@
 package com.alessandro.calimero.lib;
 
 import com.alessandro.calimero.lib.utils.MqttTopicUtils;
+import com.alessandro.calimero.utils.RegexUtils;
 import com.alessandro.calimero.utils.config.InstallationConfiguration;
 import com.alessandro.knx.client.KnxConnectionHandler;
 import com.alessandro.logger.Logger;
@@ -48,42 +49,37 @@ public class MqttToKnx implements Observer {
     }
 
     /**
-     * This method is called whenever a new message from the MQTT broker need
+     * This method is called whenever a new message from the MQTT broker is received and need
      * to be sent to KNX installation
      * @param msg
      */
     private void sendTelegramToKnx(MqttMessageExtended msg) {
-        GroupAddress address = null;
-
         try {
-            address = new GroupAddress(getGroupAddressFromMqttTopic(msg.getTopic()));
-
-            knxConnectionHandler.sendTelegram(address,
-                    TelegramToTopicMatcher.getDptFromCommandTopic(msg.getTopic()),
-                    msg.getPayloadString(),
-                    false
-            );
+            GroupAddress address = new GroupAddress(getCommandGroupAddressFromMqttTopic(msg.getTopic()));
+            TelegramToTopicMatcher.getDptFromCommandTopic(msg.getTopic())
+                    .ifPresent(s -> knxConnectionHandler.sendTelegram(
+                            address,
+                            s,
+                            msg.getPayloadString(),
+                            false
+                    ));
         } catch (KNXFormatException e) {
             e.printStackTrace(); // TODO add logger
         }
     }
 
     /**
-     * Get group address of a KNX group from the topic of a MQTT message.
+     * Get command group address of a KNX group from the topic of a MQTT message.
      * Example:
      * MQTT topic: ground_floor/kitchen/light/0/0/1
      * last 3 digit are the group address, so:
-     * KNX group address: 0/0/1
+     * KNX command group address: 0/0/1
      * @param topic MQTT topic.
-     * @return KNX group address.
+     * @return KNX command group address.
      */
-    private String getGroupAddressFromMqttTopic(String topic) {
-        String[] parts = topic.split("/");
-        return MessageFormat.format(
-                "{0}/{1}/{2}",
-                parts[parts.length - 3],
-                parts[parts.length - 2],
-                parts[parts.length - 1]);
+    private String getCommandGroupAddressFromMqttTopic(String topic) {
+        // match until third / from the end of the string
+        return RegexUtils.match("[^\\/]*\\/[^\\/]*\\/[^\\/]*+$", topic);
     }
 
     /**

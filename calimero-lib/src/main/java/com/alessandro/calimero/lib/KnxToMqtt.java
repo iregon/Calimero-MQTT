@@ -5,6 +5,7 @@ import tuwien.auto.calimero.process.ProcessEvent;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 
 public class KnxToMqtt implements Observer {
 
@@ -18,7 +19,7 @@ public class KnxToMqtt implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         ProcessEvent event = (ProcessEvent)arg;
-        String topic = TelegramToTopicMatcher.getStateTopicFromStateDp(event.getDestination().toString());
-        mqttConnectionHandler.publish(topic, event.getASDU(), true);
+        TelegramToTopicMatcher.getStateTopicFromStateDp(event.getDestination().toString())
+                .ifPresent(s -> mqttConnectionHandler.publish(s, event.getASDU(), true));
     }
 }
