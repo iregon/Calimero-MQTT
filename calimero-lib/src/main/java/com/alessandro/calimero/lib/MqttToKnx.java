@@ -20,19 +20,16 @@ public class MqttToKnx implements Observer {
     private KnxConnectionHandler knxConnectionHandler;
 
     public MqttToKnx(MqttConnectionHandler mqttConnectionHandler,
-                     KnxConnectionHandler knxConnectionHandler,
-                     InstallationConfiguration config) {
+                     KnxConnectionHandler knxConnectionHandler) {
         this.mqttConnectionHandler = mqttConnectionHandler;
         this.knxConnectionHandler = knxConnectionHandler;
-
-        subscribeToMqttTopics(config);
     }
 
     /**
      * Based on devices in InstallationConfiguration, subscribe to all topics.
      * @param config InstallationConfiguration with all device in installation.
      */
-    private void subscribeToMqttTopics(InstallationConfiguration config) {
+    public void subscribeToMqttTopics(InstallationConfiguration config) {
         config.getFloorsList().forEach(floor ->
                 floor.getRooms().forEach(room ->
                         room.getDevices().forEach(device ->
@@ -77,9 +74,9 @@ public class MqttToKnx implements Observer {
      * @param topic MQTT topic.
      * @return KNX command group address.
      */
-    private String getCommandGroupAddressFromMqttTopic(String topic) {
-        // match until third / from the end of the string
-        return RegexUtils.match("[^\\/]*\\/[^\\/]*\\/[^\\/]*+$", topic);
+    public String getCommandGroupAddressFromMqttTopic(String topic) {
+        // getFirstMatch until third / from the end of the string
+        return RegexUtils.getFirstMatch("[^\\/]*\\/[^\\/]*\\/[^\\/]*+$", topic).get();
     }
 
     /**

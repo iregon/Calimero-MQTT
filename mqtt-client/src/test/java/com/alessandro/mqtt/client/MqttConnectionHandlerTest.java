@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MqttConnectionHandlerTest {
 
-    ConnectionProfile localMosquitto = new ConnectionProfile("127.0.0.1", "5000");
+    ConnectionProfile localMosquitto = new ConnectionProfile("127.0.0.1", "5000", "","");
     InstallationConfiguration config = new InstallationConfiguration();
     MqttConnectionHandler connectionHandler = new MqttConnectionHandler(config);
 

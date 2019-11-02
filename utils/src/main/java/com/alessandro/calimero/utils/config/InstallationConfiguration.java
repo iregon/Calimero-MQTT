@@ -1,6 +1,7 @@
 package com.alessandro.calimero.utils.config;
 
 import com.alessandro.calimero.utils.config.parts.FloorConfiguration;
+import com.alessandro.calimero.utils.config.parts.MqttConnectionOption;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -12,14 +13,8 @@ public class InstallationConfiguration {
     @JsonProperty("name")
     private String installationName;
 
-    @JsonProperty("mqttBrokerAddress")
-    private String mqttBrokerAddress;
-
-    @JsonProperty("mqttBrokerPort")
-    private String mqttBrokerPort;
-
-    @JsonProperty("mqttBrokerWebsocketPort")
-    private String mqttBrokerWebsocketPort;
+    @JsonProperty("mqttConnectionOptions")
+    private MqttConnectionOption mqttConnectionOptions;
 
     @JsonProperty("knxServerAddress")
     private String knxServerAddress;
@@ -37,16 +32,8 @@ public class InstallationConfiguration {
         return installationName;
     }
 
-    public String getMqttBrokerAddress() {
-        return mqttBrokerAddress;
-    }
-
-    public String getMqttBrokerPort() {
-        return mqttBrokerPort;
-    }
-
-    public String getMqttBrokerWebsocketPort() {
-        return mqttBrokerWebsocketPort;
+    public MqttConnectionOption getMqttConnectionOptions() {
+        return mqttConnectionOptions;
     }
 
     public String getKnxServerAddress() {

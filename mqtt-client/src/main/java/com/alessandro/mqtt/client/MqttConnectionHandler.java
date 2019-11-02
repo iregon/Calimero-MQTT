@@ -15,13 +15,11 @@ public class MqttConnectionHandler {
     private MqttClient client;
     private MqttMessageListener listener = new MqttMessageListener();
 
-    private InstallationConfiguration configuration;
-
     // True if client is connected to broker, otherwise false.
     private boolean isConnected = false;
 
     public MqttConnectionHandler(InstallationConfiguration configuration) {
-        this.configuration = configuration;
+
     }
 
     public boolean connect(ConnectionProfile profile) {
@@ -32,8 +30,8 @@ public class MqttConnectionHandler {
         try {
             client = new MqttClient(brokerAddress, UUIDGenerator.generateRandom());
             MqttConnectOptions options = new MqttConnectOptions();
-            options.setUserName("msglojds");
-            options.setPassword("-J7KZzEMIGO6".toCharArray());
+            options.setUserName(profile.getUsername());
+            options.setPassword(profile.getPassword().toCharArray());
             client.connect(options);
             isConnected = true;
         } catch (MqttException e) {

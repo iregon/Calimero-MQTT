@@ -1,9 +1,13 @@
 {
   "project": {
     "name": "Progetto Esame IoT",
-    "mqttBrokerAddress": "farmer.cloudmqtt.com",
-    "mqttBrokerPort": "13855",
-    "mqttBrokerWebsocketPort": "33855",
+    "mqttConnectionOptions": {
+      "mqttBrokerAddress": "farmer.cloudmqtt.com",
+      "mqttUsername": "msglojds",
+      "mqttPassword": "-J7KZzEMIGO6",
+      "mqttBrokerPort": "13855",
+      "mqttBrokerWebsocketPort": "33855"
+    },
     "knxServerAddress": "10.0.13.200",
     "knxServerPort": "3671",
     "localPort": "5100",
