@@ -1,13 +1,14 @@
 package com.alessandro.calimero.utils;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexUtils {
 
-    public static String match(String regex, String string){
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+    public static Optional<String> getFirstMatch(String regex, String string){
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(string);
-        return matcher.group(0);
+        return matcher.find() ? Optional.of(matcher.group()) : Optional.empty();
     }
 }
