@@ -59,6 +59,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
         </dependency>
+
         <dependency>
             <groupId>com.alessandro.calimero</groupId>
             <artifactId>knx-client</artifactId>
