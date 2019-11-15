@@ -8,7 +8,7 @@ public class MqttMessageListener extends Observable implements IMqttMessageListe
 
     public MqttMessageListener() {super();}
 
-    public synchronized void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
         MqttMessageExtended newMessage = new MqttMessageExtended(s, mqttMessage);
         setChanged();
         notifyObservers(newMessage);

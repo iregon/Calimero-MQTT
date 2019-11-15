@@ -10,9 +10,9 @@ import java.text.MessageFormat;
 public class MqttTopicUtils {
 
     public static String getTopic(FloorConfiguration floor,
-                                  RoomConfiguration room,
-                                  DeviceConfiguration device,
-                                  GroupAddress groupAddress) {
+                                      RoomConfiguration room,
+                                      DeviceConfiguration device,
+                                      GroupAddress groupAddress) {
         return MessageFormat.format("{0}/{1}/{2}/{3}",
                 normalizeName(floor.getLabel()),
                 normalizeName(room.getLabel()),
@@ -21,8 +21,19 @@ public class MqttTopicUtils {
         );
     }
 
+    public static String getBaseTopic(FloorConfiguration floor,
+                                  RoomConfiguration room,
+                                  DeviceConfiguration device) {
+        return MessageFormat.format("{0}/{1}/{2}",
+                normalizeName(floor.getLabel()),
+                normalizeName(room.getLabel()),
+                normalizeName(device.getLabel())
+        );
+    }
+
     private static String normalizeName(String name) {
-        String normalized = name.replaceAll(" ", "_");
+        String normalized = name.replaceAll(" ", "");
+        normalized = normalized.toLowerCase();
         return normalized;
     }
 }

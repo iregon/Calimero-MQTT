@@ -1,8 +1,8 @@
 package com.alessandro.calimero.lib;
 
 import com.alessandro.calimero.lib.utils.MqttTopicUtils;
-import com.alessandro.calimero.utils.RegexUtils;
 import com.alessandro.calimero.utils.config.InstallationConfiguration;
+import com.alessandro.calimero.utils.regex.RegexUtils;
 import com.alessandro.knx.client.KnxConnectionHandler;
 import com.alessandro.logger.Logger;
 import com.alessandro.mqtt.client.MqttConnectionHandler;
@@ -13,6 +13,7 @@ import tuwien.auto.calimero.KNXFormatException;
 import java.text.MessageFormat;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 
 public class MqttToKnx implements Observer {
 
@@ -27,41 +28,47 @@ public class MqttToKnx implements Observer {
 
     /**
      * Based on devices in InstallationConfiguration, subscribe to all topics.
+     *
      * @param config InstallationConfiguration with all device in installation.
      */
     public void subscribeToMqttTopics(InstallationConfiguration config) {
         config.getFloorsList().forEach(floor ->
                 floor.getRooms().forEach(room ->
                         room.getDevices().forEach(device ->
-                            device.getGroupAddresses().forEach(groupAddress -> {
-                            String topic = MqttTopicUtils.getTopic(floor, room, device, groupAddress);
-                            mqttConnectionHandler.subscribe(topic);
-                            TelegramToTopicMatcher.addMatch(
-                                    topic,
-                                    device.getGroupAddresses().get(0).getDpt().getDisplayName(),
-                                    device.getGroupAddresses().get(0).getAddress(),
-                                    device.getGroupAddresses().get(0).getAddressStatus());
-                            Logger.info(MessageFormat.format("Subscribed to {0}", topic));
-                        }))));
+                                device.getGroupAddresses().forEach(groupAddress -> {
+                                    String topic = MqttTopicUtils.getTopic(floor, room, device, groupAddress);
+                                    mqttConnectionHandler.subscribe(topic);
+                                    TelegramToTopicMatcher.addMatch(
+                                            MqttTopicUtils.getBaseTopic(floor, room, device),
+                                            device.getGroupAddresses().get(0).getDpt().getDisplayName(),
+                                            device.getGroupAddresses().get(0).getAddress(),
+                                            device.getGroupAddresses().get(0).getAddressStatus());
+//                                    Logger.info(MessageFormat.format("Subscribed to {0}", topic));
+                                }))));
     }
 
     /**
      * This method is called whenever a new message from the MQTT broker is received and need
      * to be sent to KNX installation
-     * @param msg
+     *
+     * @param msg message to be sent
      */
     private void sendTelegramToKnx(MqttMessageExtended msg) {
         try {
             GroupAddress address = new GroupAddress(getCommandGroupAddressFromMqttTopic(msg.getTopic()));
-            TelegramToTopicMatcher.getDptFromCommandTopic(msg.getTopic())
-                    .ifPresent(s -> knxConnectionHandler.sendTelegram(
-                            address,
-                            s,
-                            msg.getPayloadString(),
-                            false
-                    ));
+            Optional<String> dpt = TelegramToTopicMatcher.getDptFromCommandTopic(msg.getTopic());
+            dpt.ifPresent(s -> knxConnectionHandler.sendTelegram(
+                    address,
+                    s,
+                    msg.getPayloadString(),
+                    false
+            ));
+            Logger.info(MessageFormat.format(
+                    "Sended telegram to KNX Server: GA: {0}, value: {1}",
+                    address.getMainGroup(),
+                    msg.getPayloadString()));
         } catch (KNXFormatException e) {
-            e.printStackTrace(); // TODO add logger
+            Logger.info(MessageFormat.format("Error in sending telegram to KNX Server: {0}", e.getMessage()));
         }
     }
 
@@ -71,6 +78,7 @@ public class MqttToKnx implements Observer {
      * MQTT topic: ground_floor/kitchen/light/0/0/1
      * last 3 digit are the group address, so:
      * KNX command group address: 0/0/1
+     *
      * @param topic MQTT topic.
      * @return KNX command group address.
      */
@@ -90,6 +98,6 @@ public class MqttToKnx implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        sendTelegramToKnx((MqttMessageExtended)arg);
+        sendTelegramToKnx((MqttMessageExtended) arg);
     }
 }
