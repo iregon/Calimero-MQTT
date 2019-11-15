@@ -37,12 +37,17 @@ public class KnxConnectionHandler {
         setSocketAddresses(this.configuration);
 
         Logger.info(MessageFormat.format(
-                "Connectiong to KNX server {0}:{1} ...",
+                "Connecting to KNX server {0}:{1} ...",
                 server.getAddress().toString(),
                 Integer.toString(server.getPort())
         ));
 
         createTunneling();
+
+        if(tunneling.getCommunicator() == null) {
+            Logger.info("Impossible to connect to KNX server");
+            return;
+        }
 
         listener = new KnxTelegramListener();
         tunneling.getCommunicator().addProcessListener(listener);
@@ -55,6 +60,7 @@ public class KnxConnectionHandler {
         tunneling = new KnxTunneling(local, server);
         try {
             tunneling.createTunnelling();
+            Logger.info("Connected to KNX server");
         } catch (KNXException | InterruptedException e) {
             Logger.info(MessageFormat.format("Impossible to connect to KNX server: {0}", e.getMessage()));
         }

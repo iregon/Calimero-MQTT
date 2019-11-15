@@ -35,7 +35,7 @@ public class MqttConnectionHandler {
             client.connect(options);
             isConnected = true;
         } catch (MqttException e) {
-            Logger.info("Connection failed to MQTT broker.");
+            Logger.info(MessageFormat.format("Connection failed to MQTT broker: {0}", e.getMessage()));
             return false;
         }
         Logger.info("Connected to MQTT broker.");
@@ -48,7 +48,7 @@ public class MqttConnectionHandler {
                 client.disconnect();
             } catch (MqttException e) {
                 Logger.info(MessageFormat.format(
-                        "ERROR ConnHandler(disconnect): {0}",
+                        "ERROR MqttConnHandler(disconnect): {0}",
                         e.getMessage()));
                 return false;
             }
@@ -63,10 +63,9 @@ public class MqttConnectionHandler {
     public void subscribe(String topic) {
         try {
             client.subscribe(topic, listener);
+            Logger.info(MessageFormat.format("Subscribed to: {0}", topic));
         } catch (MqttException e) {
-            Logger.info(MessageFormat.format(
-                    "ERROR ConnHandler(subscribe): {0}",
-                    e.getMessage()));
+            Logger.info(MessageFormat.format("ERROR MqttConnHandler(subscribe): {0}", e.getMessage()));
         }
     }
 
@@ -87,7 +86,7 @@ public class MqttConnectionHandler {
             client.publish(topic, payload, 1, isRetained);
         } catch (MqttException e) {
             Logger.info(MessageFormat.format(
-                    "ERROR ConnHandler(publish): {0}",
+                    "ERROR MqttConnHandler(publish): {0}",
                     e.getMessage()));
         }
     }
