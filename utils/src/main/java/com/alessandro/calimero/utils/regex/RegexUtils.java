@@ -1,4 +1,4 @@
-package com.alessandro.calimero.utils;
+package com.alessandro.calimero.utils.regex;
 
 import java.util.Optional;
 import java.util.regex.Matcher;
