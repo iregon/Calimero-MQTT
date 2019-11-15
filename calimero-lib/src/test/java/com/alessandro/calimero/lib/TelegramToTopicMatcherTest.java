@@ -19,16 +19,16 @@ class TelegramToTopicMatcherTest {
     @Test
     @Order(2)
     void getDptFromCommandTopic() {
-        assertEquals(TelegramToTopicMatcher.getDptFromCommandTopic("hello/1/1/0").get(), "1.001");
-        assertEquals(TelegramToTopicMatcher.getDptFromCommandTopic("ciao/1/2/0").get(), "1.002");
+        TelegramToTopicMatcher.getDptFromCommandTopic("hello/1/1/0").ifPresent(s -> assertEquals(s, "1.001"));
+        TelegramToTopicMatcher.getDptFromCommandTopic("ciao/1/2/0").ifPresent(s -> assertEquals(s, "1.002"));
         assertEquals(TelegramToTopicMatcher.getDptFromCommandTopic("ciao/1/6/0"), Optional.empty());
     }
 
     @Test
     @Order(3)
     void getStateTopicFromStateDp() {
-        assertEquals(TelegramToTopicMatcher.getStateTopicFromStateDp("2/1/1").get(), "hello/2/1/1");
-        assertEquals(TelegramToTopicMatcher.getStateTopicFromStateDp("2/2/1").get(), "ciao/2/2/1");
+        TelegramToTopicMatcher.getStateTopicFromStateDp("2/1/1").ifPresent(s -> assertEquals(s, "hello/2/1/1"));
+        TelegramToTopicMatcher.getStateTopicFromStateDp("2/2/1").ifPresent(s -> assertEquals(s, "ciao/2/2/1"));
         assertEquals(TelegramToTopicMatcher.getStateTopicFromStateDp("2/6/1"), Optional.empty());
     }
 }
